@@ -1,0 +1,8 @@
+.DS_Store
+dist/
+node_modules/
+jspm_packages/
+pkg/
+*.log
+*.swp
+
