@@ -13,6 +13,7 @@ require('crash-reporter').start({
 var mainWindow = null;
 
 app.on('window-all-closed', function () {
+	console.log('window-all-closed');
     if (process.platform != 'darwin') {
         app.quit();
     }

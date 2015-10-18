@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import { UIStore } from '../../stores/UIStore';
+import { UIActions } from '../../actions/UIAction';
 
 var _Groups = [
 	{ gid : 1, name : '群组1' },
@@ -10,13 +11,29 @@ var _Groups = [
 	{ gid : 5, name : '群组5' },
 ];
 
+function isFocusGroup(group) {
+	if ( UIStore.hasFocusGroup() && group != null ) {
+		if( UIStore.getFocusGroup().gid == group.gid ) {
+			return true;
+		}
+	}
+	return false;
+}
+
 class Group extends React.Component {
 	constructor(props) {
-		console.log('Group constructor');
 		super(props);
-		this.state = {active : false};
+		this.state = {active : isFocusGroup(props.group) };
 		this.handleClick = this.handleClick.bind(this);
-		console.log('Group constructor done');
+		this.onFocusChange = this.onFocusChange.bind(this);
+	}
+
+	onFocusChange(group) {
+		console.log('Group ' + this.props.group.name + ' onFocusChange: ' + group.name );
+		var isFocus = isFocusGroup(this.props.group);
+		if ( this.state.active != isFocus ) {
+			this.setState({active : isFocus});
+		}
 	}
 
 	handleClick() {
@@ -24,9 +41,19 @@ class Group extends React.Component {
 			this.setState( {active : false} );
 		} else {
 			this.setState( {active : true} );
-			this.props.onActive(this);
+			UIActions.setFocusGroup(this.props.group);
 		}
 	}
+
+	componentDidMount() {
+		console.log('componentDidMount');
+        UIStore.addFocusGroupListener(this.onFocusChange);
+    }
+
+    componentWillUnmount() {
+        UIStore.removeFocusGroupListener(this.onFocusChange);
+    }
+
 	render() {
 		console.log('Group render');
 		return (
