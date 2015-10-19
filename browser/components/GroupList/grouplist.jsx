@@ -1,15 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { UIStore } from '../../stores/UIStore';
-import { UIActions } from '../../actions/UIAction';
-
-var _Groups = [
-	{ gid : 1, name : '群组1' },
-	{ gid : 2, name : '群组2' },
-	{ gid : 3, name : '群组3' },
-	{ gid : 4, name : '群组4' },
-	{ gid : 5, name : '群组5' },
-];
+import UIStore from '../../stores/UIStore';
+import GroupStore from '../../stores/GroupStore';
+import UIActions from '../../actions/UIAction';
 
 function isFocusGroup(group) {
 	if ( UIStore.hasFocusGroup() && group != null ) {
@@ -76,7 +69,7 @@ class Group extends React.Component {
 class GroupList extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { groups : _Groups };
+		this.state = { groups : GroupStore.getAll() };
 	}
 
 	render() {

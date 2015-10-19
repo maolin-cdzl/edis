@@ -1,11 +1,10 @@
 import events from 'events';
-import { EDisDispatcher } from '../dispatcher/EDisDispatcher';
+import EDisDispatcher from '../dispatcher/EDisDispatcher';
 import { UIActionType } from '../constants/EDisConstants';
 
 const EventEmitter = events.EventEmitter;
 const EVENT_FOCUS_GROUP_CHANGED = 'EVENT_FOCUS_GROUP_CHANGED';
 
-var _group_list = [];
 var _focus_group = null;
 
 const UIStore = Object.assign({},EventEmitter.prototype,{
@@ -15,7 +14,7 @@ const UIStore = Object.assign({},EventEmitter.prototype,{
 	getFocusGroup() {
 		return _focus_group;
 	},
-	emitChange() {
+	emitFocusGroupChange() {
 		this.emit(EVENT_FOCUS_GROUP_CHANGED,_focus_group);
 	},
 	addFocusGroupListener(cb) {
@@ -30,11 +29,11 @@ EDisDispatcher.register(function(action) {
 	switch( action.actionType ) {
 		case UIActionType.CHANGE_FOCUS_GROUP :
 			_focus_group = action.group;
-			UIStore.emitChange();
+			UIStore.emitFocusGroupChange();
 			break;
 		default:
 	}
 });
 
-export { UIStore };
+export default UIStore;
 

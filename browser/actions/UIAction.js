@@ -1,4 +1,4 @@
-import { EDisDispatcher } from '../dispatcher/EDisDispatcher';
+import EDisDispatcher from '../dispatcher/EDisDispatcher';
 import { UIActionType } from '../constants/EDisConstants';
 
 
@@ -11,4 +11,4 @@ var UIActions = {
 	}
 };
 
-export { UIActions };
+export default UIActions;
