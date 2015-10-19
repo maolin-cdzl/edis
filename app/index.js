@@ -3,12 +3,12 @@
 var app = require('app');
 var BrowserWindow = require('browser-window');
 
-require('crash-reporter').start({
-    productName: 'edis',
-    companyName: 'ShanLiTech',
-    submitUrl: 'http://localhost:3000',
-    autoSubmit: true
-});
+//require('crash-reporter').start({
+//    productName: 'edis',
+//    companyName: 'ShanLiTech',
+//    submitUrl: 'http://localhost:3000',
+//    autoSubmit: true
+//});
 
 var mainWindow = null;
 
