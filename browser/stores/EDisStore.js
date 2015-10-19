@@ -5,6 +5,7 @@ import { UIActionType } from '../constants/EDisConstants';
 const EventEmitter = events.EventEmitter;
 const EVENT_FOCUS_GROUP_CHANGED = 'EVENT_FOCUS_GROUP_CHANGED';
 
+var _group_list = [];
 var _focus_group = null;
 
 const EDisStore = Object.assign({},EventEmitter.prototype,{
