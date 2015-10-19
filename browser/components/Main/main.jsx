@@ -7,7 +7,7 @@ class Main extends React.Component {
 	}
 	render() {
 		return (
-			<div><h1>This is HeadBar</h1></div> 
+			<div><h1>This is Main Area</h1></div> 
 		);
 	}
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { UIStore } from '../../stores/UIStore';
+import { EDisStore } from '../../stores/EDisStore';
 import { UIActions } from '../../actions/UIAction';
 
 var _Groups = [
@@ -12,8 +12,8 @@ var _Groups = [
 ];
 
 function isFocusGroup(group) {
-	if ( UIStore.hasFocusGroup() && group != null ) {
-		if( UIStore.getFocusGroup().gid == group.gid ) {
+	if ( EDisStore.hasFocusGroup() && group != null ) {
+		if( EDisStore.getFocusGroup().gid == group.gid ) {
 			return true;
 		}
 	}
@@ -47,11 +47,11 @@ class Group extends React.Component {
 
 	componentDidMount() {
 		console.log('componentDidMount');
-        UIStore.addFocusGroupListener(this.onFocusChange);
+        EDisStore.addFocusGroupListener(this.onFocusChange);
     }
 
     componentWillUnmount() {
-        UIStore.removeFocusGroupListener(this.onFocusChange);
+        EDisStore.removeFocusGroupListener(this.onFocusChange);
     }
 
 	render() {

@@ -1,13 +1,13 @@
 import events from 'events';
-import { UIDispatcher } from '../dispatcher/UIDispatcher';
-import { UIActionType } from '../constants/eDisConstants';
+import { EDisDispatcher } from '../dispatcher/EDisDispatcher';
+import { UIActionType } from '../constants/EDisConstants';
 
 const EventEmitter = events.EventEmitter;
 const EVENT_FOCUS_GROUP_CHANGED = 'EVENT_FOCUS_GROUP_CHANGED';
 
 var _focus_group = null;
 
-const UIStore = Object.assign({},EventEmitter.prototype,{
+const EDisStore = Object.assign({},EventEmitter.prototype,{
 	hasFocusGroup() {
 		return _focus_group != null;
 	},
@@ -25,15 +25,15 @@ const UIStore = Object.assign({},EventEmitter.prototype,{
 	}
 });
 
-UIDispatcher.register(function(action) {
+EDisDispatcher.register(function(action) {
 	switch( action.actionType ) {
 		case UIActionType.CHANGE_FOCUS_GROUP :
 			_focus_group = action.group;
-			UIStore.emitChange();
+			EDisStore.emitChange();
 			break;
 		default:
 	}
 });
 
-export { UIStore };
+export { EDisStore };
 

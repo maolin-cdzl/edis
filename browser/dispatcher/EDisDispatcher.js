@@ -1,5 +1,5 @@
 import Flux from 'flux';
 
-const UIDispatcher = new Flux.Dispatcher();
+const EDisDispatcher = new Flux.Dispatcher();
 
-export { UIDispatcher };
+export { EDisDispatcher };
