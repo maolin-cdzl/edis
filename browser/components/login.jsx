@@ -11,6 +11,8 @@ class LoginHeading extends React.Component {
 
 	handleClose() {
 		console.log('handleClose');
+		var remote = require('remote');
+		remote.getCurrentWindow().close();
 	}
 
 	render() {
