@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import LangStore from '../stores/LangStore';
+import LangMenu from './langmenu.jsx!';
 
 class LoginHeading extends React.Component {
 	constructor(props) {
@@ -94,6 +95,7 @@ class Login extends React.Component {
 						</div>
 					</div>
 				</form>
+				<LangMenu align='pull-right' pop='dropup'/>
 			</div>
 		</div>
 		);

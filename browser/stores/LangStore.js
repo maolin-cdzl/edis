@@ -20,6 +20,7 @@ var _lang_map = {
 		'register_btn' : 'Register',
 		'login_btn' : 'Log In',
 		'register_msg' : 'Register an account.',
+		'language' : 'Language',
 	},
 	zh_CN : {
 		'login_msg' : '请输入账号密码',
@@ -35,7 +36,13 @@ var _lang_map = {
 		'register_btn' : '注册账号',
 		'login_btn' : '返回登录',
 		'register_msg' : '注册一个新账号',
+		'language' : '语言',
 	}
+};
+
+var _lang_name_map = {
+	en_US : 'English',
+	zh_CN : '中文简体',
 };
 
 var _cur_lang = 'zh_CN';
@@ -44,6 +51,12 @@ var _cur_lang = 'zh_CN';
 const LangStore = Object.assign({},EventEmitter.prototype,{
 	getCurLang() {
 		return _cur_lang;
+	},
+	getCurLangName() {
+		return _lang_name_map[_cur_lang];
+	},
+	getAllLangName() {
+		return _lang_name_map;
 	},
 	getLang() {
 		return _lang_map[_cur_lang];
@@ -64,8 +77,10 @@ EDisDispatcher.register(function(action) {
 	switch( action.actionType ) {
 		case LangActionType.CHANGE_LANGUAGE :
 			if( action.lang in _lang_map ) {
-				_cur_lang = action.lang;
-				LangStore.emitLangChange();
+				if( action.lang != _cur_lang ) {
+					_cur_lang = action.lang;
+					LangStore.emitLangChange();
+				}
 			}
 			break;
 		default:

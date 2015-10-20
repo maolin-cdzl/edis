@@ -1,4 +1,4 @@
-import { EDisDispatcher } from '../dispatcher/EDisDispatcher';
+import EDisDispatcher from '../dispatcher/EDisDispatcher';
 import { GroupActionType } from '../constants/EDisConstants';
 
 
