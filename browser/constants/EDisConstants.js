@@ -9,4 +9,8 @@ const GroupActionType = {
 	REMOVE_GROUP : "REMOVE_GROUP",
 };
 
-export { UIActionType, GroupActionType };
+const LangActionType = {
+	CHANGE_LANGUAGE : 'CHANGE_LANGUAGE'
+};
+
+export { UIActionType, GroupActionType, LangActionType};
