@@ -1,17 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Login from './components/Login/login.jsx!';
-import HeadBar from './components/HeadBar/headbar.jsx!';
-import GroupList from './components/GroupList/grouplist.jsx!';
-import Talk from './components/Talk/talk.jsx!';
-import Main from './components/Main/main.jsx!';
+import Login from './components/login.jsx!';
+import HeadBar from './components/headbar.jsx!';
+import GroupList from './components/grouplist.jsx!';
+import Talk from './components/talk.jsx!';
+import Main from './components/main.jsx!';
+import LangStore from './stores/LangStore';
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			logined : false
+			logined : false,
+			lang : LangStore.getCurLang()
 		};
+		this.onLangChange = this.onLangChange.bind(this);
+	}
+	componentDidMount() {
+		LangStore.addLangListener(this.onLangChange);
+	}
+	componentWillUnmount() {
+		LangStore.removeLangListener(this.onLangChange);
 	}
 	render() {
 		if( this.logined ) {
@@ -34,6 +43,11 @@ class App extends React.Component {
 				<Login />
 			)
 		}
+	}
+
+	onLangChange(lang) {
+		this.state['lang'] = lang;
+		this.setState(this.state);
 	}
 }
 

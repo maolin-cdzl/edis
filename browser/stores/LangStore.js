@@ -42,6 +42,9 @@ var _cur_lang = 'zh_CN';
 
 
 const LangStore = Object.assign({},EventEmitter.prototype,{
+	getCurLang() {
+		return _cur_lang;
+	},
 	getLang() {
 		return _lang_map[_cur_lang];
 	},

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import UIStore from '../../stores/UIStore';
-import GroupStore from '../../stores/GroupStore';
-import UIActions from '../../actions/UIAction';
+import UIStore from '../stores/UIStore';
+import GroupStore from '../stores/GroupStore';
+import UIActions from '../actions/UIAction';
 
 function isFocusGroup(group) {
 	if ( UIStore.hasFocusGroup() && group != null ) {

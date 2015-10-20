@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LangStore from '../../stores/LangStore';
+import LangStore from '../stores/LangStore';
 
 class LoginHeading extends React.Component {
 	constructor(props) {
