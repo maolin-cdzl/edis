@@ -13,4 +13,8 @@ const LangActionType = {
 	CHANGE_LANGUAGE : 'CHANGE_LANGUAGE'
 };
 
-export { UIActionType, GroupActionType, LangActionType};
+const SelfActionType = {
+	SET_LOGIN_STATUS : 'SET_LOGIN_STATUS'
+};
+
+export { UIActionType, GroupActionType, LangActionType, SelfActionType};

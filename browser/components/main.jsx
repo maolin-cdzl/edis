@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import MapTrackMulti from './maptrackmulti.jsx!';
 
 class Main extends React.Component {
 	constructor(props) {
@@ -7,7 +8,7 @@ class Main extends React.Component {
 	}
 	render() {
 		return (
-			<div><h1>This is Main Area</h1></div> 
+			<MapTrackMulti />
 		);
 	}
 }
