@@ -41,11 +41,12 @@ app.on('window-all-closed', function () {
 
 app.on('ready', function () {
     mainWindow = new BrowserWindow({
-        width: 1024,
-        height: 768,
-		center: true,
+        'width': 1024,
+        'height': 768,
+		'center': true,
 		'auto-hide-menu-bar': true,
-		frame: false,
+		'frame': false,
+		'overlay-scrollbars' : true,
     });
     mainWindow.loadUrl('file://' + __dirname + '/../browser/index.html');
 	mainWindow.openDevTools();

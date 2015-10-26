@@ -10,20 +10,47 @@ const EVENT_GROUP_ADDED = 'EVENT_GROUP_ADDED';
 const EVENT_GROUP_REMOVED = 'EVENT_GROUP_REMOVED';
 const EVENT_GROUP_UPDATED = 'EVENT_GROUP_UPDATED';
 
-var _group_list = [
-	{ gid : 4, name : '群组4' },
-	{ gid : 3, name : '群组3' },
-	{ gid : 1, name : '群组1' },
-	{ gid : 5, name : '群组5' },
-	{ gid : 2, name : '群组2' },
-];
+var _group_list = [];
+var _group_members = {};
+
+function createUser(uid) {
+	return { uid : uid, name : '用户' + uid }
+}
+
+function createGroup(gid,usercount) {
+	return { gid : gid, name : '群组' + gid };
+}
+
+function createGroupList(){
+	for(var i=1; i < 100; ++i) {
+		_group_list.push( createGroup(i,10) );
+	}
+	_group_list = PinYinSort.keySort(_group_list,function(group){
+		return group.name;
+	});
+}
+
+function createGroupMembers() {
+	for(var i=0; i < _group_list.length; ++i){
+		var gid = _group_list[i].gid;
+		for(var uid = (gid * 10000); uid < (gid * 10000 + 100); uid++) {
+			if( !(gid in _group_members) ) {
+				_group_members[gid] = [];
+			}
+			_group_members[gid].push(createUser(uid));
+		}
+		_group_members[gid] = PinYinSort.keySort(_group_members[gid],function(user){
+			return user.name;
+		});
+	}
+}
+
+createGroupList();
+createGroupMembers();
 
 
 const GroupStore = Object.assign({},EventEmitter.prototype,{
-	getAll() {
-		_group_list = PinYinSort.keySort(_group_list,function(group){
-			return group.name;
-		});
+	getAllGroups() {
 		return _group_list;
 	},
 	getGroup(gid) {
@@ -34,6 +61,13 @@ const GroupStore = Object.assign({},EventEmitter.prototype,{
 		}
 		return null;
 	},
+	getGroupMembers(gid) {
+		if( gid in _group_members ) {
+			return _group_members[gid];
+		} else {
+			return [];
+		}
+	}
 });
 
 EDisDispatcher.register(function(action) {

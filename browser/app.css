@@ -1,0 +1,28 @@
+
+:local(.wrapper) {
+    background-color: #f8f8f8;
+	width: 100%;
+	height : 100%;
+}
+
+:local(.page-wrapper) {
+    padding: 0 15px;
+    min-height: 568px;
+    background-color: #fff;
+}
+
+:local(.tophead) {
+	width: 100%;
+	height: 10%;
+}
+
+:local(.main) {
+	width: 100%;
+	height: 85%;
+}
+
+:local(.bottomfoot) {
+	width: 100%;
+	height: 5%;
+}
+

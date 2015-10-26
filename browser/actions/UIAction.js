@@ -3,10 +3,18 @@ import { UIActionType } from '../constants/EDisConstants';
 
 
 var UIActions = {
-	setFocusGroup(group) {
+	setFocusGroup(gid) {
 		EDisDispatcher.dispatch({
 			actionType : UIActionType.CHANGE_FOCUS_GROUP,
-			group : group
+			gid : gid 
+		});
+	},
+
+	showMemberContextMenu(x,y) {
+		EDisDispatcher.dispatch({
+			actionType : UIActionType.SHOW_CONTEXT_MENU,
+			menuType : 'member',
+			x : x, y : y
 		});
 	}
 };

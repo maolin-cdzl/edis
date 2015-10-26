@@ -1,45 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Button,Collapse,ListGroup,ListGroupItem } from 'react-bootstrap';
 import UIStore from '../stores/UIStore';
 import GroupStore from '../stores/GroupStore';
 import UIActions from '../actions/UIAction';
+import Group from './group.jsx!';
 
-function isFocusGroup(group) {
-	if ( UIStore.hasFocusGroup() && group != null ) {
-		if( UIStore.getFocusGroup().gid == group.gid ) {
-			return true;
-		}
-	}
-	return false;
-}
-
-class Group extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {active : isFocusGroup(props.group) };
+class GroupList extends React.Component {
+	constructor(...args) {
+		super(...args);
+		this.state = { 
+			open : false,
+			active_gid : UIStore.getFocusGroup(),
+		};
 		this.handleClick = this.handleClick.bind(this);
 		this.onFocusChange = this.onFocusChange.bind(this);
 	}
 
-	onFocusChange(group) {
-		console.log('Group ' + this.props.group.name + ' onFocusChange: ' + group.name );
-		var isFocus = isFocusGroup(this.props.group);
-		if ( this.state.active != isFocus ) {
-			this.setState({active : isFocus});
-		}
-	}
-
-	handleClick() {
-		if( this.state.active ) {
-			this.setState( {active : false} );
-		} else {
-			this.setState( {active : true} );
-			UIActions.setFocusGroup(this.props.group);
-		}
+	onFocusChange(gid) {
+		this.setState({active_gid : gid});
 	}
 
 	componentDidMount() {
-		console.log('componentDidMount');
         UIStore.addFocusGroupListener(this.onFocusChange);
     }
 
@@ -47,40 +29,30 @@ class Group extends React.Component {
         UIStore.removeFocusGroupListener(this.onFocusChange);
     }
 
-	render() {
-		console.log('Group render');
-		return (
-			<a href="#" id={this.props.gid} className=
-				{ ( () => {
-					if (this.state.active) {
-						return "list-group-item active";
-					} else {
-						return "list-group-item"
-					}
-				}) ()}
-		   	onClick={this.handleClick}>
-				<h4 className="list-group-item-heading">{this.props.group.name}</h4>
-				<p className="list-group-item-text">This is a group</p>
-			</a>
-		);
-	}
-}
-
-class GroupList extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = { groups : GroupStore.getAll() };
+	handleClick() {
+		this.setState( { open : !this.state.open } );
 	}
 
 	render() {
 		return (
-				<div className="list-group">
-				{
-					this.state.groups.map(function(group) {
-						return <Group key={group.gid} group={group} />
-					},this)
-				}
-				</div>
+				<li>
+					<Button href="#" onClick={this.handleClick}>
+						<i className="fa fa-sitemap fa-fw"></i>群组列表<span className="fa arrow"></span>
+					</Button>
+					<Collapse in={this.state.open}>
+						<ListGroup>
+						{
+							GroupStore.getAllGroups().map(function(group) {
+								if(this.state.active_gid == group.gid ) {
+									return <ListGroupItem key={group.gid}><Group group={group} focus={true}/></ListGroupItem>
+								} else {
+									return <ListGroupItem key={group.gid}><Group group={group} focus={false}/></ListGroupItem>
+								}
+							},this)
+						}
+						</ListGroup>
+					</Collapse>
+				</li>
 		);
 	}
 }

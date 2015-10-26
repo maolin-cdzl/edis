@@ -8,9 +8,7 @@ export class PinYinSort {
 		if( s2.length == 0 ) { return -1; }
 
 		var py1 = pinyin.getCamelChars(s1);
-		console.log(s1 + " : " + py1);
 		var py2 = pinyin.getCamelChars(s2);
-		console.log(s2 + " : " + py2);
 
 		var count = py1.length > py2.length ? py2.length : py1.length;
 

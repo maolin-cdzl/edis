@@ -1,23 +1,14 @@
-import 'static/css/bootstrap.min.css!';
-import 'static/css/metisMenu.css!';
-import 'static/css/sb-admin-2.css!';
-import 'static/css/font-awesome.min.css!';
-
-import 'jquery';
-import 'static/js/bootstrap.min.js';
-import 'static/js/metisMenu.js';
-import 'static/js/sb-admin-2.js';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Login from './components/login.jsx!';
-import Navigation from './components/navigation.jsx!';
-import GroupList from './components/grouplist.jsx!';
-import Talk from './components/talk.jsx!';
+import HeadBar from './components/headbar.jsx!';
 import Main from './components/main.jsx!';
+import SideBar from './components/sidebar.jsx!';
+import ContextMenu from './components/contextmenu.jsx!';
 import SelfStore from './stores/SelfStore';
 import LangStore from './stores/LangStore';
 
+import styles from './app.css!css';
 
 class App extends React.Component {
 	constructor(props) {
@@ -47,18 +38,22 @@ class App extends React.Component {
 	render() {
 		if( this.state.logined ) {
 			return (
-				<div id="wrapper" style={{"height" : "100%"}}>
-					<Navigation />
-					<div id="page-wrapper" style={{ 'height' : '100%', backgroundColor : 'red'}}>
-						<div className="row">
-							<div className="col-lg-12">
-								<h1 className="page-header">Dashboard</h1>
-							</div>
+				<div className="container-fluid wrapper">
+					<div className="row tophead">
+						<HeadBar />
+					</div>
+					<div className="row main">
+						<div className="col-md-2">
+							<SideBar />
 						</div>
-						<div className="row">
+						<div className="col-md-8">
 							<Main />
 						</div>
 					</div>
+					<div className="row bottomfoot">
+						<h4>Foot bar</h4>
+					</div>
+					<ContextMenu />
 				</div>
 			);
 		} else {

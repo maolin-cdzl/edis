@@ -7,6 +7,7 @@ const EVENT_LANGUAGE_CHANGED = 'EVENT_LANGUAGE_CHANGED';
 
 var _lang_map = {
 	en_US : {
+		'company' : 'ShanLiTech',
 		'login_msg' : 'Type your username and password.',
 		'username' : 'Username',
 		'password' : 'Password',
@@ -23,6 +24,7 @@ var _lang_map = {
 		'language' : 'Language',
 	},
 	zh_CN : {
+		'company' : '善理科技',
 		'login_msg' : '请输入账号密码',
 		'username' : '账号',
 		'password' : '密码',
