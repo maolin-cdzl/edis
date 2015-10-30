@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Radium from 'radium';
+
 import GroupList from './grouplist.jsx!';
 
 class SideBar extends React.Component {
@@ -8,29 +10,36 @@ class SideBar extends React.Component {
 	}
 
 	render() {
-		console.log('SideBar render');
 		return(
-		<div className="sidebar-nav">
-			<ul className="nav">
-				<li className="sidebar-search">
-					<div className="input-group custom-search-form">
-						<input type="text" className="form-control" placeholder="Search..." />
-						<span className="input-group-btn">
-							<button className="btn btn-default" type="button">
-								<i className="fa fa-search"></i>
-							</button>
-						</span>
-					</div>
-				</li>
-				<li>
-					<a href="index.html"><i className="fa fa-dashboard fa-fw"></i> Dashboard</a>
-				</li>
+		<div className="container-fluid" style={SideBarStyle.wrapper}>
+			<div style={SideBarStyle.toparea}>
 				<GroupList />
-			</ul>
+			</div>
+			<div style={SideBarStyle.bottomarea}>
+				<h4>Bottom</h4>
+			</div>
 		</div>
 		);
 	}
 }
+
+var SideBarStyle = {
+	wrapper: {
+		padding: '0px',
+		minHeight : '90vh',
+		maxHeight : '90vh',
+		border: '3px solid',
+	},
+	toparea: {
+		minHeight: '50vh',
+		maxHeight: '80vh',
+	},
+	bottomarea: {
+		minHeight: '20vh',
+		maxHeight: '50vh',
+		backgroundColor: 'blue',
+	}
+};
 
 export default SideBar;
 

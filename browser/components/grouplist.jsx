@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Radium from 'radium';
 import { Button,Collapse,ListGroup,ListGroupItem } from 'react-bootstrap';
+
 import UIStore from '../stores/UIStore';
 import GroupStore from '../stores/GroupStore';
 import UIActions from '../actions/UIAction';
@@ -10,10 +12,8 @@ class GroupList extends React.Component {
 	constructor(...args) {
 		super(...args);
 		this.state = { 
-			open : false,
 			active_gid : UIStore.getFocusGroup(),
 		};
-		this.handleClick = this.handleClick.bind(this);
 		this.onFocusChange = this.onFocusChange.bind(this);
 	}
 
@@ -29,32 +29,43 @@ class GroupList extends React.Component {
         UIStore.removeFocusGroupListener(this.onFocusChange);
     }
 
-	handleClick() {
-		this.setState( { open : !this.state.open } );
-	}
-
 	render() {
-		return (
-				<li>
-					<Button href="#" onClick={this.handleClick}>
-						<i className="fa fa-sitemap fa-fw"></i>群组列表<span className="fa arrow"></span>
-					</Button>
-					<Collapse in={this.state.open}>
-						<ListGroup>
-						{
-							GroupStore.getAllGroups().map(function(group) {
-								if(this.state.active_gid == group.gid ) {
-									return <ListGroupItem key={group.gid}><Group group={group} focus={true}/></ListGroupItem>
-								} else {
-									return <ListGroupItem key={group.gid}><Group group={group} focus={false}/></ListGroupItem>
-								}
-							},this)
-						}
-						</ListGroup>
-					</Collapse>
-				</li>
-		);
+		var groups = GroupStore.getAllGroups();
+		if( groups.length > 1 ) {
+			return (
+					<ListGroup componentClass="ul">
+					{
+						GroupStore.getAllGroups().map(function(group) {
+							return <Group key={group.gid} group={group} focus={this.state.active_gid == group.gid ? true : false}/>
+						},this)
+					}
+					</ListGroup>
+			);
+		} else if( groups.length == 1 ) {
+			var group = groups[0];
+			return (
+				<ListGroup componentClass="ul">
+					<Group key={group.gid} group={group} focus={this.state.active_gid == group.gid ? true : false}/>
+				</ListGroup>
+			);
+		} else {
+			return (
+				<div id="grouplist-area" style={GroupListStyles.wrapper}>
+					 <h4>您未加入任何群组</h4>
+				</div>
+			);
+		}
 	}
 }
+
+var GroupListStyles = {
+	wrapper : {
+		'padding': '0px',
+		'overflowY': 'auto',
+		'overflowX': 'hidden',
+		'backgroundColor': '#0000ff',
+	}
+};
+
 
 export default GroupList;

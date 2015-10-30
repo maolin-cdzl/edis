@@ -46,7 +46,6 @@ app.on('ready', function () {
 		'center': true,
 		'auto-hide-menu-bar': true,
 		'frame': false,
-		'overlay-scrollbars' : true,
     });
     mainWindow.loadUrl('file://' + __dirname + '/../browser/index.html');
 	mainWindow.openDevTools();
