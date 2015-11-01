@@ -80,33 +80,32 @@ class App extends React.Component {
 
 var AppStyles = {
 	wrapper: {
-		'background': '#f8f8f8',
-		'minHeight' : '100vh',
-		'maxHeight' : '100vh',
-		'padding': '0px',
-		'margin': '0px',
+		backgroundColor: '#f8f8f8',
+		height: '100vh',
+		width: '100vw',
+		padding: 0,
+		margin: 0,
 	},
 	tophead: {
-		'minHeight' : '5vh',
-		'maxHeight' : '10vh',
-		'padding': '0px',
-		'margin': '0px',
+		height: '10%',
+		padding: 0,
+		margin: 0,
 	},
 	main: {
-		'minHeight': '90vh',
-		'maxHeight' : '95vh',
-		'padding': '0px',
-		'margin': '0px',
+		height: '90%',
+		padding: 0,
+		margin: 0,
 	},
 	sidebar: {
-		'backgroundColor': 'green',
-		margin: '0px',
-		padding: '0px',
+		backgroundColor: 'green',
+		height: '100%',
+		padding: 0,
+		margin: 0,
 	},
 	page: {
-		margin: '0px',
-		padding: '0px',
-		'minHeight' : '100vh',
+		height: '100%',
+		padding: 0,
+		margin: 0,
 	}
 };
 

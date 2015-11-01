@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Radium from 'radium';
-import { Collapse,Button,ListGroup,ListGroupItem } from 'react-bootstrap';
 
 import UIActions from '../actions/UIAction';
 import GroupStore from '../stores/GroupStore';
@@ -20,40 +19,52 @@ export default class Group extends React.Component {
 		this.setState( { open : !this.state.open } );
 	}
 
+	componentWillReceiveProps(props) {
+		if( ! props.focus && this.state.open ) {
+			this.setState( { open: false } );
+		}
+	}
+
 	shouldComponentUpdate(nextProps,nextState) {
 		return ( nextProps.focus != this.props.focus || nextState['open'] != this.state.open);
 	}
 
 	render() {
-		var rows = [];
-		var members = GroupStore.getGroupMembers(this.props.group.gid);
-		if( members != null ) {
-			console.log('Group has ' + members.length + ' members');
-			members.forEach(function(member){
-				rows.push(<ListGroupItem key={member.uid}><GroupMember member={member} /></ListGroupItem>);
-			});
-		}
-
-		if (this.props.focus == true) {
-			console.log('focus Group with ' + (this.state.open ? 'open' : 'close'));
+		if( this.state.open) {
+			var rows = [];
+			var members = GroupStore.getGroupMembers(this.props.group.gid);
+			if( members != null ) {
+				console.log('Group has ' + members.length + ' members');
+				members.forEach(function(member){
+					rows.push(<li className="list-group-item" style={GroupStyles.item} key={member.uid}><GroupMember member={member} /></li>)
+				});
+			} else {
+				rows.push(<li className="list-group-item" style={GroupStyles.item}><span>...</span></li>);
+			}
 			return(
-				<li style={GroupStyles.wrapper}>
-					<Button href="#" bsStyle="primary" block onClick={this.handleClick}>
-						<i className="fa fa-users fa-fw" style={ { textAlign: 'left' }}> {this.props.group.name}</i>
-					</Button>
-					<Collapse in={this.state.open}>
-						<ListGroup>
-						{rows}
-						</ListGroup>
-					</Collapse>
-				</li>
+				<div style={GroupStyles.wrapper}>
+					<a href="#" className="btn btn-block btn-primary" role="button" style={GroupStyles.active} onClick={this.handleClick}>
+						<i className="fa fa-users fa-fw"></i> {this.props.group.name}<i className="fa fa-caret-square-o-up fa-fw pull-right" style={GroupStyles.signal}></i>
+					</a>
+					<ul className="list-group">
+					{ rows }
+					</ul>
+				</div>
+			);
+		} else if( this.props.focus ) {
+			return(
+				<div style={GroupStyles.wrapper}>
+					<a href="#" className="btn btn-block btn-primary" role="button" style={GroupStyles.active} onClick={this.handleClick}>
+						<i className="fa fa-users fa-fw"></i> {this.props.group.name}<i className="fa fa-caret-square-o-right fa-fw pull-right" style={GroupStyles.signal}></i>
+					</a>
+				</div>
 			);
 		} else {
 			return(
 				<div style={GroupStyles.wrapper}>
-					<Button href="#" active block onClick={this.handleClick}>
-						<i className="fa fa-users fa-fw"> {this.props.group.name}</i>
-					</Button>
+					<a href="#" className="btn btn-block" role="button" style={GroupStyles.normal} onClick={this.handleClick}>
+						<i className="fa fa-users fa-fw"></i> {this.props.group.name}<i className="fa fa-caret-square-o-right fa-fw pull-right" style={GroupStyles.signal}></i>
+					</a>
 				</div>
 			);
 		}
@@ -62,9 +73,25 @@ export default class Group extends React.Component {
 
 var GroupStyles = {
 	wrapper: {
-		margin: '0px',
-		padding: '0px',
-	}
+		margin: 0,
+		padding: 0,
+	},
+	normal: {
+		textAlign: 'left',
+		paddingLeft: '15px',
+		fontSize: '100%',
+	},
+	active: {
+		textAlign: 'left',
+		paddingLeft: '15px',
+		fontSize: '125%',
+	},
+	signal: {
+	},
+	item: {
+		margin: 0,
+		padding: 0,
+	},
 };
 
 

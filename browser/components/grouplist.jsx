@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Radium from 'radium';
-import { Button,Collapse,ListGroup,ListGroupItem } from 'react-bootstrap';
 
 import UIStore from '../stores/UIStore';
 import GroupStore from '../stores/GroupStore';
@@ -33,24 +32,24 @@ class GroupList extends React.Component {
 		var groups = GroupStore.getAllGroups();
 		if( groups.length > 1 ) {
 			return (
-					<ListGroup componentClass="ul">
+					<ul className="list-group">
 					{
 						GroupStore.getAllGroups().map(function(group) {
-							return <Group key={group.gid} group={group} focus={this.state.active_gid == group.gid ? true : false}/>
+							return <li className="list-group-item" style={GroupListStyles.item} key={group.gid}><Group group={group} focus={this.state.active_gid == group.gid ? true : false}/></li>
 						},this)
 					}
-					</ListGroup>
+					</ul>
 			);
 		} else if( groups.length == 1 ) {
 			var group = groups[0];
 			return (
-				<ListGroup componentClass="ul">
-					<Group key={group.gid} group={group} focus={this.state.active_gid == group.gid ? true : false}/>
-				</ListGroup>
+				<ul className="list-group">
+					<li className="list-group-item" style={GroupListStyles.item}><Group group={group} focus={this.state.active_gid == group.gid ? true : false}/></li>
+				</ul>
 			);
 		} else {
 			return (
-				<div id="grouplist-area" style={GroupListStyles.wrapper}>
+				<div id="grouplist-area">
 					 <h4>您未加入任何群组</h4>
 				</div>
 			);
@@ -59,12 +58,10 @@ class GroupList extends React.Component {
 }
 
 var GroupListStyles = {
-	wrapper : {
-		'padding': '0px',
-		'overflowY': 'auto',
-		'overflowX': 'hidden',
-		'backgroundColor': '#0000ff',
-	}
+	item: {
+		margin: 0,
+		padding: 0,
+	},
 };
 
 

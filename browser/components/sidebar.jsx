@@ -11,11 +11,11 @@ class SideBar extends React.Component {
 
 	render() {
 		return(
-		<div className="container-fluid" style={SideBarStyle.wrapper}>
-			<div style={SideBarStyle.toparea}>
+		<div id="sidebar" className="row" style={SideBarStyle.wrapper}>
+			<div id="top-area" className="row" style={SideBarStyle.toparea}>
 				<GroupList />
 			</div>
-			<div style={SideBarStyle.bottomarea}>
+			<div id="bottom-area" className="row" style={SideBarStyle.bottomarea}>
 				<h4>Bottom</h4>
 			</div>
 		</div>
@@ -25,18 +25,21 @@ class SideBar extends React.Component {
 
 var SideBarStyle = {
 	wrapper: {
-		padding: '0px',
-		minHeight : '90vh',
-		maxHeight : '90vh',
-		border: '3px solid',
+		height: "100%",
+		padding: 0,
+		margin: 0,
 	},
 	toparea: {
-		minHeight: '50vh',
-		maxHeight: '80vh',
+		height: '60%',
+		padding: 0,
+		margin: 0,
+		overflowX: 'hidden',
+		overflowY: 'auto',
 	},
 	bottomarea: {
-		minHeight: '20vh',
-		maxHeight: '50vh',
+		height: '40%',
+		padding: 0,
+		margin: 0,
 		backgroundColor: 'blue',
 	}
 };
